@@ -18,6 +18,8 @@ public:
 	// Constructor
 	ATank();
 
+	// Called to bind functionality to input
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 private:
 
@@ -27,5 +29,5 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	class UCameraComponent* Camera;
 
-
+	void Move(float value);
 };
