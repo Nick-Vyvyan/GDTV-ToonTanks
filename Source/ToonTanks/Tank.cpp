@@ -17,6 +17,14 @@ ATank::ATank()
 	Camera->SetupAttachment(SpringArm);
 }
 
+void ATank::HandleDestruction()
+{
+	Super::HandleDestruction();
+
+	SetActorHiddenInGame(true);
+	SetActorTickEnabled(false);
+}
+
 void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
@@ -31,8 +39,8 @@ void ATank::BeginPlay()
 {
 	Super::BeginPlay();
 
-	PlayerControllerRef = Cast<APlayerController>(GetController());
-	PlayerControllerRef->bShowMouseCursor = true;
+	TankPlayerController = Cast<APlayerController>(GetController());
+	TankPlayerController->bShowMouseCursor = true;
 }
 
 // Called every frame
@@ -40,10 +48,10 @@ void ATank::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (PlayerControllerRef)
+	if (TankPlayerController)
 	{
 		FHitResult HitResult;
-		PlayerControllerRef->GetHitResultUnderCursor(
+		TankPlayerController->GetHitResultUnderCursor(
 			ECollisionChannel::ECC_Visibility,
 			false,
 			HitResult);
